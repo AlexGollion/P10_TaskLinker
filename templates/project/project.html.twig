@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ project.title }} - TaskLinker {% endblock %}
+
+{% block header %}
+    <div class="flex-header">
+        <h1>{{ project.title }}</h1>
+        <div class="user-list">
+            {% for employee in project.employees %}
+                <div class="avatar">{{ employee.FirstName|first }}{{ employee.name|first }}</div>
+            {% endfor %}
+        </div>
+        <a class="button" href="{{ path('app_project_update', {id: project.id}) }}">Modifier</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        <div id="tasks-container">
+            <div class="task-column">
+                <h2>To Do</h2>
+                <div class="tasks-list">
+                    {% for task in tasks %}
+                        {% if task.status == enum('App\\Enum\\TaskStatus').ToDo %}
+                        <a class="task" href="tache.html">
+                            <h3>{{ task.title }}</h3>
+                            <p>{{ task.description }}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i> {{  task.date|date('d-m-Y') }}
+                                </div>
+                                <div class="mini-user">
+                                    {{ task.employee.FirstName|first }}
+                                    {{ task.employee.name|first }}
+                              </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="tache-add.html" class="task-add">
+                    + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+            <div class="task-column">
+                <h2>Doing</h2>
+                <div class="tasks-list">
+                    {% for task in tasks %}
+                        {% if task.status == enum('App\\Enum\\TaskStatus').Doing %}
+                        <a class="task" href="tache.html">
+                            <h3>{{ task.title }}</h3>
+                            <p>{{ task.description }}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i> {{  task.date|date('d-m-Y') }}
+                                </div>
+                                <div class="mini-user">
+                                    {{ task.employee.FirstName|first }}
+                                    {{ task.employee.name|first }}
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="tache-add.html" class="task-add">
+                    + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+            <div class="task-column">
+                <h2>Done</h2>
+                <div class="tasks-list">
+                    {% for task in tasks %}
+                        {% if task.status == enum('App\\Enum\\TaskStatus').Done %}
+                        <a class="task" href="tache.html">
+                            <h3>{{ task.title }}</h3>
+                            <p>{{ task.description }}</p>
+                            <div class="task-infos">
+                                <div class="mini-user">
+                                    {{ task.employee.FirstName|first }}
+                                    {{ task.employee.name|first }}
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="tache-add.html" class="task-add">
+                    + Ajouter une tâche
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

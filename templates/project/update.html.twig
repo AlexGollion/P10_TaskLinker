@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ project.title }} - TaskLinker {% endblock %}
+   
+{% block header %}
+    <h1>{{ project.title }}</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        {{ form_start(form, { 'attr' : { 'name': 'projet' }}) }}
+            <div>
+                {{ form_row(form.title) }}
+            </div>
+            <div>
+                {{ form_row(form.employees) }}
+            </div>
+            <br>
+            <button class="button button-submit">Modifier</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -5,19 +5,21 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\ProjectRepository;
+use App\Entity\Project;
 
 final class MainController extends AbstractController
 {
-    #[Route('/', name: 'app_main')]
-    public function index(): Response
-    {
-        ob_start();
-        phpinfo();
-        $phpinfo = ob_get_contents();
-        ob_end_clean();
+    public function __construct(private ProjectRepository $projectRepository) {
+    }
 
-        return $this->render('main/index.html.twig', [
-            'phpinfo' => $phpinfo,
+    #[Route('/', name: 'app_main_home')]
+    public function home(): Response
+    {
+        $projects = $this->projectRepository->findAll();
+
+        return $this->render('main/home.html.twig', [
+            'projects' => $projects,
         ]);
     }
 }
