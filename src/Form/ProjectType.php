@@ -24,7 +24,7 @@ class ProjectType extends AbstractType
                 ],
                 'attr' => [
                     'required' => true,
-                    'id' => 'id',
+                    'id' => 'projet_name',
                     'name' => 'projet[name]',
                 ]
             ])
@@ -36,6 +36,7 @@ class ProjectType extends AbstractType
                 ],
                 'attr' => [
                     'id' => 'projet_employes',
+                    'name' => 'projet[employes][]',
                 ],
                 'choice_label' => function(Employee $employee) {
                     return mb_substr($employee->getFirstName(), 0, 1) . '' . mb_substr($employee->getName(), 0, 1);

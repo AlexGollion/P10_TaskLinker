@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Créer une tâche - TaskLinker {% endblock %}
+
+{% block header %}
+    <h1>Créer une tâche</h1>
+{% endblock %}
+
+{% block body %}
+    <div id="content">
+        {{ form_start(form, { 'attr' : { 'name': 'task' }}) }}
+            <div>
+                {{ form_row(form.title) }}
+            </div>
+            <div>
+                {{ form_row(form.description) }}
+            </div>
+            <div class="flex-form">
+                <div>
+                    {{ form_row(form.date) }}
+                </div>
+                <div>
+                    {{ form_row(form.status) }}
+                </div>
+            </div>
+            <div>
+                {{ form_row(form.employee) }}
+            </div>
+            <br>
+            <button class="button button-submit">Ajouter</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
