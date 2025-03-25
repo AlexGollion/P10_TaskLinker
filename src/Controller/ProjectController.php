@@ -18,7 +18,7 @@ final class ProjectController extends AbstractController
     public function __construct(private ProjectRepository $projectRepository, private TaskRepository $taskRepository, private EmployeeRepository $employeeRepository) {
     }
      #[Route('/project/{id}', name: 'app_project_display', requirements: ['id' => '\d+'], methods: ['GET'])]
-    public function index(int $id): Response
+    public function project(int $id): Response
     {
 
         $project = $this->projectRepository->find($id);

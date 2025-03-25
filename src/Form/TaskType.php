@@ -68,7 +68,7 @@ class TaskType extends AbstractType
                     'name' => 'tache[statut]',
                 ],
                 'choice_label' => function(TaskStatus $status) {
-                    return $status->value;
+                    return strtoupper($status->value);
                 },
                 'multiple' => false,
             ])

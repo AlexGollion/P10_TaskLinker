@@ -25,13 +25,13 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo TaskLinker" />
                 </a>
                 <ul id="main-menu">
-                    <li class="active">
+                    <li {% block body_class_projects %}{% endblock %} >
                         <a href="{{ path('app_main_home') }}">
                             <i class="fa-solid fa-list-check"></i> Projets
                         </a>
                     </li>
-                    <li>
-                        <a href="employes.html">
+                    <li {% block body_class_equipe %}{% endblock %} >
+                        <a href="{{ path('app_employees_display') }}">
                             <i class="fa-regular fa-user"></i> Équipe
                         </a>
                     </li>

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ employee.FirstName }} {{ employee.name }} - TaskLinker {% endblock %}
+
+{% block body_class_equipe %}class="active"{% endblock %}
+
+{% block header %}
+    <h1>{{ employee.FirstName }} {{ employee.name }}</h1>
+{% endblock %}
+
+{% block body %}
+    <div id="content">
+        {{ form_start(form, { 'attr' : { 'name': 'employe' }}) }}
+            <div>
+                {{ form_row(form.name) }}
+            </div>
+            <div>
+                {{ form_row(form.first_name) }}
+            </div>
+            <div>
+                {{ form_row(form.email) }}
+            </div>
+            <div class="form-flex">
+                <div>
+                    {{ form_row(form.date) }}
+                </div>
+                <div>
+                    {{ form_row(form.status) }}
+                </div>
+            </div>
+            <br>
+            <button class="button button-submit">Enregistrer</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
