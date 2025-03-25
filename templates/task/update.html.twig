@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Créer une tâche - TaskLinker {% endblock %}
+{% block title %} Gestion des droits d'accès - TaskLinker {% endblock %}
 
 {% block header %}
-    <h1>Créer une tâche</h1>
+    <h1>Gestion des droits d'accès</h1>
 {% endblock %}
 
 {% block body %}
@@ -24,10 +24,11 @@
                 </div>
             </div>
             <div>
-                {{ form_row(form.employee, {  'placeholder': '' }) }}
+                {{ form_row(form.employee) }}
             </div>
             <br>
-            <button class="button button-submit">Ajouter</button>
+            <button class="button button-submit">Modifier</button>
+            <a href="{{ path('app_task_delete', { id: task.id }) }}" class="delete-task">Supprimer la tâche</a>
         {{ form_end(form) }}
     </div>
 {% endblock %}

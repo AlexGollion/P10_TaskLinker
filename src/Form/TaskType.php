@@ -82,7 +82,6 @@ class TaskType extends AbstractType
                     'id' => 'tache_employe',
                     'name' => 'tache[employe]',
                 ],
-                'placeholder' => '',
                 'query_builder' => function(EntityRepository $er) use ($project_id): QueryBuilder {
                     return $er->createQueryBuilder('e')
                         ->select('e')
