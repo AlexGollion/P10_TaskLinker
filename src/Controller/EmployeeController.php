@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Employee;
 use App\Form\EmployeeType;
+use App\Enum\EmployeeStatus;
 
 final class EmployeeController extends AbstractController
 {
@@ -56,12 +57,16 @@ final class EmployeeController extends AbstractController
     #[Route('/employees/edit/{id}', name: 'app_employees_update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function update(int $id, Request $request, EntityManagerInterface $manager): Response
     {
-        $employee = $this->employeeRepository->find($id);
-        $status = $employee->getStatus() ?? EmployeeStatus::cdi;
-        $form = $this->createForm(EmployeeType::class, $employee);
-
+        $employee = $this->employeeRepository->find($id);      
+        $status = $employee->getStatus();  
+        $form = $this->createForm(EmployeeType::class, $employee, [
+            'status' => $status,
+        ]);
+        
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $status = $form->get('status')->getData();
+            $employee->setStatus($status);
             $manager->flush();
             
             return $this->redirectToRoute('app_employees_display');

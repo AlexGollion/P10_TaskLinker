@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class EmployeeType extends AbstractType
 {
@@ -72,8 +75,7 @@ class EmployeeType extends AbstractType
                 'widget' => 'single_text',
                 'input' => 'datetime_immutable',
             ])
-            ->add('status', EnumType::class, [
-                'class' => EmployeeStatus::class,
+            ->add('status', TextType::class, [
                 'label' => 'Statut',
                 'label_attr' => [
                     'class' => 'required',
@@ -84,10 +86,7 @@ class EmployeeType extends AbstractType
                     'id' => 'employe_statut',
                     'name' => 'employe[statut]',
                 ],
-                'choice_label' => function(EmployeeStatus $status) {
-                    return $status->value;
-                },
-                'multiple' => false,
+                'data' => $options['status']->value,
             ])
         ;
     }
@@ -96,6 +95,7 @@ class EmployeeType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Employee::class,
+            'status' => EmployeeStatus::class,
         ]);
     }
 }

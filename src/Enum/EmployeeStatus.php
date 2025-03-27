@@ -17,6 +17,7 @@ enum EmployeeStatus: string
             self::freelance => 'freelance',
         };
     }
+
 }
 
 ?>

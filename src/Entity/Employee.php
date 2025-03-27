@@ -108,9 +108,22 @@ class Employee
         return $this->status;
     }
 
-    public function setStatus(EmployeeStatus $status): static
+        public function setStatus($status): static
     {
-        $this->status = $status;
+        if ($status instanceof EmployeeStatus) {
+            $this->status = $status;
+        } 
+        elseif (is_string($status)) {
+            $enumStatus = EmployeeStatus::tryFrom($status);
+            if ($enumStatus !== null) {
+                $this->status = $enumStatus;
+            } else {
+                throw new \InvalidArgumentException("Invalid status value: $status");
+            }
+        } 
+        else {
+            $this->status = null;
+        }
 
         return $this;
     }
