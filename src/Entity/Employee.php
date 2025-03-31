@@ -108,7 +108,7 @@ class Employee
         return $this->status;
     }
 
-        public function setStatus($status): static
+    public function setStatus($status): static
     {
         if ($status instanceof EmployeeStatus) {
             $this->status = $status;
