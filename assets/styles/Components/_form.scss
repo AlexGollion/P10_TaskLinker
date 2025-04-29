@@ -1,0 +1,61 @@
+form input,
+form select,
+form textarea {
+  border: 1px solid #b5b5b5;
+  display: block;
+  background: white;
+  height: 50px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 24px;
+  border-radius: 4px;
+}
+
+form {
+  width: 320px;
+}
+
+form label {
+  font-size: 16px;
+  line-height: 22px;
+  color: #202020;
+  margin-bottom: 5px;
+  display: block;
+}
+
+form ul {
+  list-style: none;
+  padding: 0;
+  color: #e14343;
+  margin: 0;
+  font-style: italic;
+}
+
+form
+  .select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice {
+  background-color: #4d8077;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  font-style: normal;
+  height: 24px;
+  padding-left: 5px;
+  padding-right: 20px;
+}
+
+form
+  .select2-container--default
+  .select2-selection--multiple
+  .select2-selection__choice__remove {
+  color: #fff;
+  border-right: none;
+  right: 5px;
+  left: unset;
+  font-size: 16px;
+}

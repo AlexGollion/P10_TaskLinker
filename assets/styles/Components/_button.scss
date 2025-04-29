@@ -1,0 +1,32 @@
+.button {
+  background: #b1d89d;
+  padding: 0 15px;
+  border-radius: 10px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  color: #4d8077;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: center;
+  text-decoration: none;
+}
+
+button.button.button-submit {
+  width: 100%;
+  background: #1f5b50;
+  border-radius: 10px;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0em;
+  justify-content: center;
+  border: none;
+  color: #ffffff;
+  height: 70px;
+  margin-top: 5px;
+}

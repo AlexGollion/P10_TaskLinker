@@ -1,0 +1,35 @@
+ul#main-menu {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+ul#main-menu li a {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+ul#main-menu li:hover a {
+  background: #dcfdad50;
+}
+
+ul#main-menu li.active a {
+  background: #dcfdad;
+  color: #1c5b50;
+}
+
+ul#main-menu i {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}

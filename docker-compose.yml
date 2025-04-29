@@ -1,6 +1,6 @@
 services:
   database:
-    container_name: database
+    container_name: database_P10
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: secret
@@ -12,20 +12,19 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
   php:
-    container_name: php
+    container_name: php_P10
     build:
-      context: ./php
+      context: ./
     ports:
       - 8080:80
     volumes:
-      - ./apache/default.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-      - ./app:/var/www
+      - ./default.conf:/etc/apache2/sites-enabled/000-default.conf:ro
+      - ./:/var/www
     depends_on:
       - database
   phpma:
     image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
+    container_name: phpmyadmin_P10
     environment:
       PMA_ARBITRARY: 1
       PMA_HOST: database

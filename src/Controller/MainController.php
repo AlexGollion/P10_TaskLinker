@@ -13,7 +13,13 @@ final class MainController extends AbstractController
     public function __construct(private ProjectRepository $projectRepository) {
     }
 
-    #[Route('/', name: 'app_main_home')]
+    #[Route('/', name: 'app_main_logout')]
+    public function logout(): Response
+    {
+        return $this->render('authentication/logout.html.twig');
+    }
+
+    #[Route('/home', name: 'app_main_home')]
     public function home(): Response
     {
         $projects = $this->projectRepository->findAll();

@@ -1,0 +1,15 @@
+{% extends 'authentication/index.html.twig' %}
+
+{% block content %}
+
+        <h1>Bienvenue sur TaskLinker</h1>
+        <p>Commencez dès maintenant - gratuitement</p>
+
+        <div>
+            <p>Vous avez déjà un compte ?</p>
+            <a href="#">Se connecter</a>
+            <p>OU</p>
+            <a href="{{ path('app_authentication_registration')}}">S'inscrire</a>
+        </div>
+
+{% endblock %}
