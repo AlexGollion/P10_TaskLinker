@@ -34,7 +34,7 @@ class AuthenticationType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',
-                'reuired' => true,
+                'required' => true,
                 'first_options' => [
                     'label' => 'Mot de passe',
                     'label_attr' => [

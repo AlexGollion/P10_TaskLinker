@@ -1,1 +1,25 @@
 {% extends 'authentication/index.html.twig' %}
+
+{% block content %}
+
+    <h1>S'inscrire</h1>
+
+    {{ form_start(form) }}
+        <div>
+            {{ form_row(form.name) }}
+        </div>
+        <div>
+            {{ form_row(form.first_name) }}
+        </div>
+        <div>
+            {{ form_row(form.email) }}
+        </div>
+        <div>
+            {{ form_row(form.password) }}
+        </div>
+        <button class="button button-submit">Continuer</button>
+    {{ form_end(form) }}
+
+    <a href="#">Vous avez déjà un compte ?</a>
+
+{% endblock %}

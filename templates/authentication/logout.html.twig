@@ -5,11 +5,15 @@
         <h1>Bienvenue sur TaskLinker</h1>
         <p>Commencez dès maintenant - gratuitement</p>
 
-        <div>
+        <div class="content-logout">
             <p>Vous avez déjà un compte ?</p>
-            <a href="#">Se connecter</a>
-            <p>OU</p>
-            <a href="{{ path('app_authentication_registration')}}">S'inscrire</a>
+            <a id="login-link" href="#">Se connecter</a>
+            <div>
+                <hr id="first-line" />
+                <p>OU</p>
+                <hr id="second-line" />
+            </div>
+            <a id="registration-link" href="{{ path('app_authentication_registration')}}">S'inscrire</a>
         </div>
 
 {% endblock %}

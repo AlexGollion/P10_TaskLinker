@@ -1,11 +1,61 @@
-#main-container-authentication {
+.main-container-authentication {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 50%;
-  height: 50%;
+  height: 700px;
   background-color: #4d8077;
   border-radius: 5%/10%;
   padding: 5%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  color: #ffffff;
+}
+
+.content-logout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    hr {
+      transform: rotate(90deg);
+      width: 100%;
+    }
+
+    #first-line {
+      margin-right: 50px;
+    }
+
+    #second-line {
+      margin-left: 50px;
+    }
+  }
+
+  a {
+    width: 50%;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+  }
+
+  #login-link {
+    background-color: #1c5b50;
+    color: white;
+  }
+
+  #registration-link {
+    background-color: #b1d89d;
+    color: #4d8077;
+  }
 }
