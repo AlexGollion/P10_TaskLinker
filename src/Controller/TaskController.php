@@ -10,14 +10,19 @@ use App\Repository\TaskRepository;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Security\Voter\TaskVoter;
 use App\Entity\Task;
 use App\Form\TaskType;
 
+#[Route('/task', name: 'app_task_')]
+#[IsGranted('ROLE_USER')]
 final class TaskController extends AbstractController{
 
     public function __construct(private ProjectRepository $projectRepository, private TaskRepository $taskRepository, private EmployeeRepository $employeeRepository) {
     }
-    #[Route('/task/new/{id}', name: 'app_task_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(int $id, Request $request, EntityManagerInterface $manager): Response
     {
         $task = new Task();
@@ -40,7 +45,8 @@ final class TaskController extends AbstractController{
         ]);
     }
 
-    #[Route('/task/delete/{id}', name: 'app_task_delete', methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'delete', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, EntityManagerInterface $manager): Response
     {
         $task = $this->taskRepository->find($id);
@@ -55,11 +61,14 @@ final class TaskController extends AbstractController{
         return $this->redirectToRoute('app_project_display', ['id' => $project->getId()]);
     }
     
-    #[Route('/task/edit/{id}', name: 'app_task_update', methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'update', methods: ['GET', 'POST'])]
     public function update(int $id, Request $request, EntityManagerInterface $manager): Response
     {
         $task = $this->taskRepository->find($id);
         $project = $task->getProject();
+
+        $this->denyAccessUnlessGranted(TaskVoter::VIEW, $task);
+
         $form = $this->createForm(TaskType::class, $task, [
             'project_id' => $project->getId(),
         ]);

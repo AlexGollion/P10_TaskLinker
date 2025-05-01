@@ -12,16 +12,22 @@ use App\Repository\TaskRepository;
 use App\Repository\EmployeeRepository;
 use App\Form\ProjectType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Security\Voter\ProjectVoter;
 
+#[Route('/project', name: 'app_project_')]
+#[IsGranted('ROLE_USER')]
 final class ProjectController extends AbstractController
 {
     public function __construct(private ProjectRepository $projectRepository, private TaskRepository $taskRepository, private EmployeeRepository $employeeRepository) {
     }
-     #[Route('/project/{id}', name: 'app_project_display', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/{id}', name: 'display', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function project(int $id): Response
     {
-
         $project = $this->projectRepository->find($id);
+
+        $this->denyAccessUnlessGranted(ProjectVoter::VIEW, $project);
+    
         $tasks = $this->taskRepository->findBy(['project' => $project]);
 
         return $this->render('project/project.html.twig', [
@@ -30,7 +36,8 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/new', name: 'app_project_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -62,7 +69,8 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/delete/{id}', name: 'app_project_delete', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(int $id, EntityManagerInterface $manager): Response
     {
 
@@ -88,7 +96,8 @@ final class ProjectController extends AbstractController
         return $this->redirectToRoute('app_main_home');
     }
 
-    #[Route('/project/edit/{id}', name: 'app_project_update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function update(Request $request, int $id, EntityManagerInterface $manager): Response
     {
 

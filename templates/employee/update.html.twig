@@ -5,7 +5,7 @@
 {% block body_class_equipe %}class="active"{% endblock %}
 
 {% block header %}
-    <h1>{{ employee.FirstName }} {{ employee.name }}</h1>
+    <h1>Édition Équipe</h1>
 {% endblock %}
 
 {% block body %}
@@ -28,8 +28,12 @@
                     {{ form_row(form.status) }}
                 </div>
             </div>
+            <div>
+                {{ form_row(form.roles) }}
+            </div>        
             <br>
             <button class="button button-submit">Enregistrer</button>
+            {{ form_widget(form._token) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}

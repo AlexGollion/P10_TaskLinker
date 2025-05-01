@@ -7,8 +7,10 @@
 @import "./Layout/nav";
 @import "./Layout/footer";
 @import "./Pages/base";
+@import "./Pages/security";
 @import "./Pages/home";
 @import "./Pages/project";
 @import "./Pages/employee";
 @import "./Pages/task";
-@import "./Pages/authentication";
+@import "./Pages/login";
+@import "./Pages/register";

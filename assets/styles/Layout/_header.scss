@@ -16,3 +16,16 @@ div#title-page h1 {
   color: #fff;
   margin: 0;
 }
+
+div#title-page a.profil-logout {
+  position: absolute;
+  top: 50px;
+  right: 5%;
+  background-color: #ffffff;
+  color: #4d8077;
+  text-decoration: none;
+  border-radius: 100%;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 15px;
+}

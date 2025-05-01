@@ -30,11 +30,13 @@
                             <i class="fa-solid fa-list-check"></i> Projets
                         </a>
                     </li>
-                    <li {% block body_class_equipe %}{% endblock %} >
-                        <a href="{{ path('app_employees_display') }}">
-                            <i class="fa-regular fa-user"></i> Équipe
-                        </a>
-                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li {% block body_class_equipe %}{% endblock %} >
+                            <a href="{{ path('app_employees_display') }}">
+                                <i class="fa-regular fa-user"></i> Équipe
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
 
@@ -42,7 +44,9 @@
                 <header>
                     <div id="current-user"></div>
                     <div id="title-page">
-                    {% block header %}{% endblock %}
+                        <a class="profil-logout" href="{{ path('app_logout') }}">{{ app.user.name|first }} {{ app.user.FirstName|first }}</a>
+                    {% block header %}
+                    {% endblock %}
                     </div>
                 </header>
                 {% block body %}{% endblock %}

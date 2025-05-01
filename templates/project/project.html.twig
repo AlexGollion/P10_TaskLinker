@@ -12,7 +12,13 @@
                 <div class="avatar">{{ employee.FirstName|first }}{{ employee.name|first }}</div>
             {% endfor %}
         </div>
-        <a class="button" href="{{ path('app_project_update', {id: project.id}) }}">Modifier</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            {% if tasks is empty %}
+                <a class="button" href="{{ path('app_project_update', {id: project.id}) }}">Modifier</a>
+            {% else %}
+                <a class="button" href="{{ path('app_project_update', {id: project.id}) }}">Inviter des membres</a>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -40,9 +46,11 @@
                         </a>
                         {% endif %}
                     {% endfor %}
-                    <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
-                    + Ajouter une tâche
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
+                        + Ajouter une tâche
+                        </a>
+                    {% endif %} 
                 </div>
             </div>
             <div class="task-column">
@@ -65,9 +73,11 @@
                         </a>
                         {% endif %}
                     {% endfor %}
-                    <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
-                    + Ajouter une tâche
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
+                        + Ajouter une tâche
+                        </a>
+                    {% endif %}                    
                 </div>
             </div>
             <div class="task-column">
@@ -87,9 +97,11 @@
                         </a>
                         {% endif %}
                     {% endfor %}
-                    <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
-                    + Ajouter une tâche
-                    </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_task_new', {id: project.id}) }}" class="task-add">
+                        + Ajouter une tâche
+                        </a>
+                    {% endif %} 
                 </div>
             </div>
         </div>

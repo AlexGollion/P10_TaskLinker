@@ -2,8 +2,6 @@
 
 {% block title %}Liste des projets - TaskLinker{% endblock %}
 
-{% block body_class_projects %}class="active"{% endblock %}
-
 {% block header %}
     <h1>projets</h1>
 {% endblock %}
@@ -22,12 +20,14 @@
                     </div>
                 </article>
             {% endfor %}
-            <article class="card-project">
-                     <a href="{{ path('app_project_new') }}">
-                        <i class="fa-solid fa-circle-plus add-project-icon"></i>
-                        <h2>Ajouter un projet</h2>
-                     </a>
-            </article>
+            {% if is_granted('ROLE_ADMIN') %}
+                <article class="card-project">
+                        <a href="{{ path('app_project_new') }}">
+                            <i class="fa-solid fa-circle-plus add-project-icon"></i>
+                            <h2>Ajouter un projet</h2>
+                        </a>
+                </article>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

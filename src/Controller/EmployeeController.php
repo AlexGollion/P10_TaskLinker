@@ -10,15 +10,19 @@ use App\Repository\TaskRepository;
 use App\Repository\EmployeeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use App\Entity\Employee;
 use App\Form\EmployeeType;
 use App\Enum\EmployeeStatus;
 
+#[Route('/employees', name: 'app_employees_')]
+#[IsGranted('ROLE_ADMIN')]
 final class EmployeeController extends AbstractController
 {
     public function __construct(private ProjectRepository $projectRepository, private TaskRepository $taskRepository, private EmployeeRepository $employeeRepository) {
     }
-    #[Route('/employees', name: 'app_employees_display')]
+
+    #[Route('/', name: 'display')]
     public function employees(): Response
     {
         $employees = $this->employeeRepository->findAll();
@@ -28,7 +32,7 @@ final class EmployeeController extends AbstractController
         ]);
     }
 
-    #[Route('/employees/delete/{id}', name: 'app_employees_delete', requirements: ['id' => '\d+'], methods: ['GET'])]
+    #[Route('/delete/{id}', name: 'delete', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function delete(int $id, EntityManagerInterface $manager): Response
     {
 
@@ -54,7 +58,7 @@ final class EmployeeController extends AbstractController
         return $this->redirectToRoute('app_employees_display');
     }
 
-    #[Route('/employees/edit/{id}', name: 'app_employees_update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[Route('/edit/{id}', name: 'update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function update(int $id, Request $request, EntityManagerInterface $manager): Response
     {
         $employee = $this->employeeRepository->find($id);      
@@ -67,6 +71,16 @@ final class EmployeeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $status = $form->get('status')->getData();
             $employee->setStatus($status);
+
+            $roles = [];
+            $role = $form->get('roles')->getData();
+            if ($role == 'ROLE_ADMIN')
+            {
+                $roles[] = 'ROLE_USER';
+                $roles[] = 'ROLE_ADMIN';
+                $employee->setRoles($roles);
+            }
+
             $manager->flush();
             
             return $this->redirectToRoute('app_employees_display');

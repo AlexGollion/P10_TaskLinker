@@ -16,6 +16,16 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    public function findProjectsByUser($userId)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.employees', 'e')
+            ->where('e.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Project[] Returns an array of Project objects
     //     */

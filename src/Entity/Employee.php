@@ -61,6 +61,9 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'employee')]
     private Collection $tasks;
 
+    #[ORM\Column]
+    private bool $isVerified = false;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -102,10 +105,47 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+
+        if (empty($roles))
+        {
+            // guarantee every user at least has ROLE_USER
+            $roles[] = 'ROLE_USER';
+        }
+
+        if ($this->email == 'Admin@doe.fr')
+        {
+            $roles[] = 'ROLE_ADMIN';
+        }
 
         return array_unique($roles);
+    }
+
+    public function getRolesName(): string
+    {
+        $roles = $this->roles;
+        
+        if (empty($roles))
+        {
+            // guarantee every user at least has ROLE_USER
+            $roles[] = 'ROLE_USER';
+        }
+
+        if ($this->email == 'Admin@doe.fr')
+        {
+            $roles[] = 'ROLE_ADMIN';
+        }
+
+        foreach ($roles as $key => $role)
+        {
+            if (count($roles) == 2)
+            {
+                return "Chef de projet";
+            }
+            else 
+            {
+                return "Collaborateur";
+            }
+        }
     }
 
     /**
@@ -183,9 +223,22 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->status;
     }
 
-    public function setStatus(EmployeeStatus $status): static
+    public function setStatus($status): static
     {
-        $this->status = $status;
+        if ($status instanceof EmployeeStatus) {
+            $this->status = $status;
+        } 
+        elseif (is_string($status)) {
+            $enumStatus = EmployeeStatus::tryFrom($status);
+            if ($enumStatus !== null) {
+                $this->status = $enumStatus;
+            } else {
+                throw new \InvalidArgumentException("Invalid status value: $status");
+            }
+        } 
+        else {
+            $this->status = null;
+        }
 
         return $this;
     }
@@ -240,6 +293,18 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
                 $task->setEmployee(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

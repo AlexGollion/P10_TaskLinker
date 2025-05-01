@@ -88,6 +88,25 @@ class EmployeeType extends AbstractType
                 ],
                 'data' => $options['status']->value,
             ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Rôle',
+                'label_attr' => [
+                    'class' => 'required',
+                    'for' => 'employe_role',
+                ],
+                'attr' => [
+                    'required' => true,
+                    'id' => 'employe_role',
+                    'name' => 'employe[role]',
+                ],
+                'choices' => [
+                    'Collaborateur' => 'ROLE_USER',
+                    'Chef de projet' => 'ROLE_ADMIN',
+                ],
+                'mapped' => false,
+                'data' => in_array('ROLE_ADMIN', $options['data']->getRoles()) ? 'ROLE_ADMIN' : 'ROLE_USER',
+            ])
+
         ;
     }
 
