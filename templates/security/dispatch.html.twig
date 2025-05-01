@@ -1,0 +1,21 @@
+{% extends 'security.html.twig' %}
+
+{% block content %}
+
+    <div class="main-container-authentication">
+        <h1>Bienvenue sur TaskLinker</h1>
+        <p>Commencez dès maintenant - gratuitement</p>
+
+        <div class="content-logout">
+            <p>Vous avez déjà un compte ?</p>
+            <a id="login-link" href="{{ path('app_login')}}">Se connecter</a>
+            <div>
+                <div id="first-line"></div>
+                <p>OU</p>
+                <div id="second-line"></div>
+            </div>
+            <a id="registration-link" href="{{ path('app_register')}}">S'inscrire</a>
+        </div>
+    </div>
+
+{% endblock %}
