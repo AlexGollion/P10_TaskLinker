@@ -37,13 +37,9 @@ final class TaskVoter extends Voter
                 break;
 
             case self::VIEW:
-                if (in_array("ROLE_ADMIN", $user->getRoles())) {
-                    return true;
-                }
-                
-                if ($subject->getEmployee()->getId() === $user->getId()) {
-                    return true;
-                }
+
+                return ((in_array("ROLE_ADMIN", $user->getRoles())) || ($subject->getEmployee()->getId() === $user->getId()));
+
                 break;
         }
 

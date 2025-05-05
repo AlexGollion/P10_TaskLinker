@@ -28,3 +28,10 @@ Pour utiliser sass
 ```bash
 php bin/console sass:build --watch
 ```
+
+Pour charger les fixtures
+
+```bash
+php bin/console doctrine:fixtures:load --group=group1
+php bin/console doctrine:fixtures:load --append --group=group2
+```

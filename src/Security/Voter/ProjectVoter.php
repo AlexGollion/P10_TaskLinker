@@ -35,15 +35,9 @@ final class ProjectVoter extends Voter
                 break;
                 
             case self::VIEW:
-                if (in_array("ROLE_ADMIN", $user->getRoles())) {
-                    return true;
-                }
-                
-                foreach ($subject->getEmployees() as $employee) {
-                    if ($employee->getId() === $user->getId()) {
-                        return true;
-                    }
-                }
+
+                return ((in_array("ROLE_ADMIN", $user->getRoles())) || ($subject->getCreator()->getId() === $user->getId()));
+
                 break;
         }
 

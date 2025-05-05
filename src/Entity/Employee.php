@@ -17,6 +17,8 @@ use App\Enum\EmployeeStatus;
 #[UniqueEntity(fields: ['email'])]
 class Employee implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    private const EMAIL_ADMIN = 'Admin@doe.fr';
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -112,7 +114,7 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
             $roles[] = 'ROLE_USER';
         }
 
-        if ($this->email == 'Admin@doe.fr')
+        if ($this->email === self::EMAIL_ADMIN)
         {
             $roles[] = 'ROLE_ADMIN';
         }
@@ -130,21 +132,14 @@ class Employee implements UserInterface, PasswordAuthenticatedUserInterface
             $roles[] = 'ROLE_USER';
         }
 
-        if ($this->email == 'Admin@doe.fr')
+        if ($this->email == self::EMAIL_ADMIN)
         {
             $roles[] = 'ROLE_ADMIN';
         }
 
         foreach ($roles as $key => $role)
         {
-            if (count($roles) == 2)
-            {
-                return "Chef de projet";
-            }
-            else 
-            {
-                return "Collaborateur";
-            }
+            return (count($roles) === 2) ? "Chef de projet" : "Collaborateur";
         }
     }
 
