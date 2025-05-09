@@ -80,6 +80,11 @@ final class EmployeeController extends AbstractController
                 $roles[] = 'ROLE_ADMIN';
                 $employee->setRoles($roles);
             }
+            else 
+            {
+                $roles[] = 'ROLE_USER';
+                $employee->setRoles($roles);
+            }
 
             $manager->flush();
             
